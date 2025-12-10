@@ -1,7 +1,13 @@
-# Flask Web App Starter
+# github-stats-generator
 
-A Flask starter template as per [these docs](https://flask.palletsprojects.com/en/3.0.x/quickstart/#a-minimal-application).
+Gerador automático de imagens SVG/PNG com estatísticas do GitHub (versão premium).
 
-## Getting Started
+## Objetivo
+Gerar `assets/github-stats.png` e `assets/github-stats.svg` diariamente via GitHub Actions e disponibilizar a imagem para uso no README / GitHub Pages.
 
-Previews should run automatically when starting a workspace.
+## Como usar
+No seu README ou site, inclua:
+
+## Configuração
+- Edite `generate_stats.py` caso queira alterar layout/tema.
+- Action roda diariamente; você pode disparar manualmente em **Actions → Generate GitHub Stats (premium)**.
