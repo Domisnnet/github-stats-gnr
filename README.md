@@ -1,5 +1,5 @@
 ## Estatísticas do Repositório
-![GitHub Stats](github-stats.png)
+![GitHub Stats](https://github.com/Domisnnet/github-stats-gnr/blob/main/assets/github-stats.png)
 
 
 # github-stats-generator
