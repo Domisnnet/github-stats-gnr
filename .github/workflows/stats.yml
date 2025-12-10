@@ -1,39 +1,38 @@
-name: Generate GitHub Stats (premium)
+name: Generate GitHub Stats
 
 on:
   schedule:
-    - cron: '0 3 * * *'   # 03:00 UTC diariamente
+    - cron: "0 */12 * * *"
   workflow_dispatch:
-
-permissions:
-  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Install
+        run: pip install requests matplotlib
 
-      - name: Run generator
-        env:
-          GITHUB_USER: Domisnnet
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python generate_stats.py
-
-      - name: Commit generated assets
+      - name: Generate Stats
         run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions"
-          git add assets/github-stats.png assets/github-stats.svg || true
-          git commit -m "chore(stats): update github-stats artifacts" || echo "No changes to commit"
+          python generators/generate_commits.py
+          python generators/generate_languages.py
+          python generators/generate_repos.py
+          python generators/generate_summary.py
+          python generators/generate_activity.py
+
+      - name: Commit
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add output/*.png 
+          git commit -m "Update stats" || echo "No changes"
           git push
