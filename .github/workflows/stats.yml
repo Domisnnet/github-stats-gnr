@@ -2,46 +2,42 @@ name: Generate GitHub Stats
 
 on:
   schedule:
-    - cron: "0 */12 * * *"   # Atualiza a cada 12 horas
+    - cron: "0 0 * * *"
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout do repositório
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
-      # Configura Python 3.11
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
 
-      # Instala dependências
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
-      # Define o PYTHONPATH para permitir imports de utils/
       - name: Configure PYTHONPATH
-        run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
-        export PYTHONPATH=$PWD
+        run: |
+          echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+          export PYTHONPATH=${{ github.workspace }}
 
-      # Executa o gerador de gráficos
       - name: Generate Stats
         run: python generators/generate_commits.py
 
-      # Faz commit da imagem gerada e envia para o repositório
-      - name: Commit and push changes
+      - name: Commit and Push
         run: |
           git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add output/github-stats.png
-          git commit -m "Atualiza GitHub Stats" || echo "No changes to commit"
-          git push
+          git config --global user.email "github-actions@github.com"
+
+          if [ -f output/github-stats.png ]; then
+            git add output/github-stats.png
+            git commit -m "Atualiza estatísticas" || echo "Sem mudanças"
+            git push
+          else
+            echo "Nenhuma imagem foi gerada."
+          fi
