@@ -29,7 +29,7 @@ def generate_commits_graph():
     ax.set_title("Commits no Último Ano", pad=12)
 
     plt.tight_layout()
-    plt.savefig("output/commits.png", dpi=300)
+    plt.savefig("output/github-stats.png", dpi=300)
     plt.close()
 
 if __name__ == "__main__":
