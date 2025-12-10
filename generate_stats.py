@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 generate_stats.py
 Gerador de estatísticas premium (PNG + SVG) para README / GitHub Pages.
