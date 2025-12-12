@@ -2,7 +2,7 @@ name: Generate GitHub Dashboard
 
 on:
   schedule:
-    - cron: "0 0 * * *"   # diário
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -27,7 +29,7 @@ jobs:
           echo "GITHUB_TOKEN=${{ secrets.PERSONAL_GITHUB_TOKEN }}" >> $GITHUB_ENV
 
       - name: Generate Dashboard
-        run: python generators/generate_dashboard.py
+        run: python -m generators.generate_dashboard
 
       - name: Commit and Push
         run: |
@@ -36,8 +38,9 @@ jobs:
 
           if [ -f output/dashboard.png ]; then
             git add output/dashboard.png
-            git commit -m "Atualiza dashboard premium" || echo "Sem alterações"
+            git commit -m "Atualiza dashboard premium" || echo "Sem alterações para commit"
             git push
           else
-            echo "Nenhuma imagem foi gerada."
+            echo "ERRO: Nenhuma imagem foi gerada em output/dashboard.png."
+            exit 1 # Opcional: Falhar o Action se o arquivo não for encontrado
           fi
