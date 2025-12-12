@@ -3,7 +3,7 @@ import matplotlib as mpl
 import numpy as np
 
 def apply_dark_tech_theme():
-    # Remove warnings do matplotlib sobre colormaps
+    # Definições globais de estilo
     plt.rcParams.update({
         "figure.facecolor": "#0A0A0D",
         "axes.facecolor": "#0A0A0D",
