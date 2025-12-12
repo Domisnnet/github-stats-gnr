@@ -5,10 +5,10 @@ from datetime import datetime
 from collections import Counter
 import requests
 import time 
+
 from utils.github_api import get_repos, get_commit_activity
 from utils.plot_theme import apply_dark_tech_theme, apply_vertical_gradient
 
-# --- Constantes de Estilo ---
 CARD_BORDER_COLOR = "#4cc9f0"
 CARD_FACE_COLOR = "#111827"
 KPI_TEXT_COLOR = "#c3dafe"
@@ -140,7 +140,7 @@ class DashboardGenerator:
 
     def _add_footer(self):
         now = datetime.now().strftime("%d/%m/%Y %H:%M")
-        self.ax.text(0.50, 0.05,
+        self.ax.text(0.50, 0.08,
                      f"Atualizado automaticamente em {now}",
                      color="#6b7280",
                      fontsize=10,
