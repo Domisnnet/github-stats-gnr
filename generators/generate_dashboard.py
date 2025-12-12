@@ -73,7 +73,7 @@ class DashboardGenerator:
     def _setup_figure(self):
         apply_dark_tech_theme()
         
-        self.fig = plt.figure(figsize=(19, 10.5), dpi=300) 
+        self.fig = plt.figure(figsize=(24, 12), dpi=300) 
         self.ax = self.fig.add_subplot(111)
         self.ax.set_facecolor("#0a0f1f")
         
@@ -82,17 +82,17 @@ class DashboardGenerator:
         plt.axis("off")
         
     def _draw_layout(self):
-        self._draw_card(0.05, 0.60, 0.38, 0.30, "GitHub Overview")
-        self._draw_card(0.55, 0.60, 0.38, 0.30, "Total Commits (Donut)")
-        self._draw_card(0.05, 0.15, 0.88, 0.40, "Top Linguagens (Ranking)") 
+        self._draw_card(0.06, 0.60, 0.35, 0.30, "GitHub Overview")
+        self._draw_card(0.59, 0.60, 0.35, 0.30, "Total Commits (Donut)")
+        self._draw_card(0.06, 0.15, 0.88, 0.40, "Top Linguagens (Ranking)") 
 
     def _draw_kpis(self):
-        self.ax.text(0.07, 0.83, f"Repositórios Totais: {self.total_repos}", color=KPI_TEXT_COLOR, fontsize=16, transform=self.ax.transAxes)
-        self.ax.text(0.07, 0.77, f"Repositórios Ativos: {self.active_repos}", color=KPI_TEXT_COLOR, fontsize=16, transform=self.ax.transAxes)
-        self.ax.text(0.07, 0.71, f"Commits Totais: {self.total_commits}", color=KPI_TEXT_COLOR, fontsize=16, transform=self.ax.transAxes)
+        self.ax.text(0.08, 0.83, f"Repositórios Totais: {self.total_repos}", color=KPI_TEXT_COLOR, fontsize=16, transform=self.ax.transAxes)
+        self.ax.text(0.08, 0.77, f"Repositórios Ativos: {self.active_repos}", color=KPI_TEXT_COLOR, fontsize=16, transform=self.ax.transAxes)
+        self.ax.text(0.08, 0.71, f"Commits Totais: {self.total_commits}", color=KPI_TEXT_COLOR, fontsize=16, transform=self.ax.transAxes)
 
     def _draw_commits_donut(self):
-        commit_ax = self.fig.add_axes([0.65, 0.64, 0.24, 0.24], facecolor=CARD_FACE_COLOR)
+        commit_ax = self.fig.add_axes([0.67, 0.64, 0.23, 0.23], facecolor=CARD_FACE_COLOR)
         
         commit_ax.pie(
             [self.total_commits, 1],
@@ -120,16 +120,16 @@ class DashboardGenerator:
         labels.reverse()
         percentages.reverse()
 
-        lang_ax = self.fig.add_axes([0.12, 0.22, 0.78, 0.30], facecolor=CARD_FACE_COLOR)
+        lang_ax = self.fig.add_axes([0.15, 0.22, 0.75, 0.30], facecolor=CARD_FACE_COLOR)
         
         bars = lang_ax.barh(labels, percentages, height=0.6, color=CARD_BORDER_COLOR)
 
         lang_ax.set_xticks([])
-        lang_ax.tick_params(axis='y', length=0, labelsize=14, pad=20) 
+        lang_ax.tick_params(axis='y', length=0, labelsize=14, pad=30) 
 
         for bar in bars:
             width = bar.get_width()
-            lang_ax.text(width + 2.5, bar.get_y() + bar.get_height()/2, 
+            lang_ax.text(width + 3.5, bar.get_y() + bar.get_height()/2, 
                          f'{width:.1f}%',
                          va='center', color=KPI_TEXT_COLOR, fontsize=12, fontweight='bold')
 
