@@ -15,7 +15,6 @@ KPI_TEXT_COLOR = "#c3dafe"
 OUTPUT_PATH = "output/dashboard.png" 
 
 class DashboardGenerator:
-    """Gera um dashboard de estatísticas do GitHub usando Matplotlib."""
 
     def __init__(self, username):
         self.username = username
@@ -74,7 +73,7 @@ class DashboardGenerator:
     def _setup_figure(self):
         apply_dark_tech_theme()
         
-        self.fig = plt.figure(figsize=(17, 10), dpi=300) 
+        self.fig = plt.figure(figsize=(19, 10.5), dpi=300) 
         self.ax = self.fig.add_subplot(111)
         self.ax.set_facecolor("#0a0f1f")
         
@@ -83,9 +82,9 @@ class DashboardGenerator:
         plt.axis("off")
         
     def _draw_layout(self):
-        self._draw_card(0.05, 0.60, 0.40, 0.30, "GitHub Overview")
-        self._draw_card(0.50, 0.60, 0.40, 0.30, "Total Commits (Donut)")
-        self._draw_card(0.05, 0.15, 0.85, 0.40, "Top Linguagens (Ranking)") 
+        self._draw_card(0.05, 0.60, 0.38, 0.30, "GitHub Overview")
+        self._draw_card(0.55, 0.60, 0.38, 0.30, "Total Commits (Donut)")
+        self._draw_card(0.05, 0.15, 0.88, 0.40, "Top Linguagens (Ranking)") 
 
     def _draw_kpis(self):
         self.ax.text(0.07, 0.83, f"Repositórios Totais: {self.total_repos}", color=KPI_TEXT_COLOR, fontsize=16, transform=self.ax.transAxes)
@@ -93,7 +92,7 @@ class DashboardGenerator:
         self.ax.text(0.07, 0.71, f"Commits Totais: {self.total_commits}", color=KPI_TEXT_COLOR, fontsize=16, transform=self.ax.transAxes)
 
     def _draw_commits_donut(self):
-        commit_ax = self.fig.add_axes([0.60, 0.65, 0.25, 0.25], facecolor=CARD_FACE_COLOR)
+        commit_ax = self.fig.add_axes([0.65, 0.64, 0.24, 0.24], facecolor=CARD_FACE_COLOR)
         
         commit_ax.pie(
             [self.total_commits, 1],
@@ -120,7 +119,8 @@ class DashboardGenerator:
         
         labels.reverse()
         percentages.reverse()
-        lang_ax = self.fig.add_axes([0.10, 0.22, 0.78, 0.30], facecolor=CARD_FACE_COLOR)
+
+        lang_ax = self.fig.add_axes([0.12, 0.22, 0.78, 0.30], facecolor=CARD_FACE_COLOR)
         
         bars = lang_ax.barh(labels, percentages, height=0.6, color=CARD_BORDER_COLOR)
 
