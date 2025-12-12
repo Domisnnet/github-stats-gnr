@@ -67,7 +67,7 @@ def generate_premium_graph():
 
     # Títulos premium
     ax.set_title(
-        "Commits no Último Ano – Dashboard Premium",
+        "Commits no Último Ano – Dashboard",
         fontsize=18,
         pad=20,
         weight="bold",
