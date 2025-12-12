@@ -1,6 +1,6 @@
 <div align="center">
 
-# GitHub Stats Generator  
+# GitHub-Stats-Generator  
 **Automação Avançada de Estatísticas — Visualização Premium em Tempo Real**
 
 Projeto automatizado que coleta estatísticas da conta GitHub (`Domisnnet`) e gera visualizações profissionais atualizadas diariamente através de GitHub Actions.
